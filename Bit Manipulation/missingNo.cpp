@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        //finding the size
+        int n = nums.size();
+
+        int xor1 = 0, xor2 = 0;
+        for (int i = 0; i < n; i++){
+            xor1 = xor1^nums[i];
+            xor2 = xor2^(i+1);
+        }
+
+        return xor1 ^ xor2;
+    }
+};
+
+//0 se xor krne ka fyda nhi hence i+1 will cover all no hence works
