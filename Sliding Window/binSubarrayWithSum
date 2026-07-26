@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int SumAtmostGoal(vector<int>& nums, int goal){
+        //wrote this base case coz <= k me to kbhi ni hoega lekin next func me goal -1 kr rhe h hence need it 
+        if (goal < 0) return 0;
+
+        int l = 0;
+        int r = 0;
+        int cnt = 0;
+        int sum = 0;
+        while (r < nums.size()){
+            //el ko sum me add krdo
+            sum += nums[r];
+            //if sum > k, keep reducing till valid, hence trim from left
+            while (sum > goal){
+                sum -= nums[l];
+                l++;
+            }
+            //ab valid h to count kitne bn skte h, r - l + 1 se bnenge, explanantion notebook me
+            cnt += (r - l + 1);
+            r++;
+        }
+        return cnt;
+    }
+
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        return SumAtmostGoal(nums, goal) - SumAtmostGoal(nums, goal-1);
+    }
+};
+
+//logic: basically ques is count subarray with sum == goal
+//we will find sum <= goal
+
+//then will do: (sum <= goal) - (sum <= goal -) = (sum == goal)
+
+//[1,0,1,0,1]
+// [1, 0,1,0] valid h hence last el 0 khud me ek subarray valid hoga [0], same way [1, 0] bhi, [0,1,0] bhi and [1,0,1,0] bhi, therefore wrote r-l+1
