@@ -26,3 +26,28 @@ public:
         return ans;
     }
 };
+
+
+//no  extra space
+
+class Solution {
+public:
+    void genPermute(int index, vector<int>& nums, vector<vector<int>>& ans){
+        if (index == nums.size()){ //base case, put in ans
+            ans.push_back(nums);
+            return ;
+        }
+        //loop laga do har index pe
+        for (int i = index; i <nums.size(); i++){
+            swap(nums[index], nums[i]);
+            genPermute(index + 1, nums, ans);
+            swap(nums[index], nums[i]); //fn call khmt hote hi phle jaisa bana do
+        }
+    }
+
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> ans;
+        genPermute(0, nums, ans);
+        return ans;
+    }
+};
